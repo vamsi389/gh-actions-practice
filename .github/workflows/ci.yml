@@ -1,21 +1,20 @@
-name: CI                          # Display name in the Actions tab
+name: TestingReusable
 
-on:                               # WHEN this runs
-  push:
-    branches: [main]
-  pull_request:
-  workflow_dispatch:              # adds a manual "Run workflow" button
+on: 
+  workflow_call: 
 
-jobs:                             # WHAT runs
-  build:                          # job ID (you choose this)
-    name: Build and test          # display name (optional)
-    runs-on: ubuntu-latest        # WHERE it runs
+jobs:
+  test:
+    runs-on: 
+      - self-hosted
+      - linux
+      - x64
 
     steps:
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: checking out
+        uses: actions/checkout@v6
 
-      - name: Run tests
-        run: npm test
+      - name: Listing files
+        run: ls -ltrh
+  
+
